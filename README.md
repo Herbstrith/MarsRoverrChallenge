@@ -4,7 +4,7 @@ A solution to the mars rover programming challenge using node.js
 
 ### Getting Started
 
-To solve a given input file (txt), use
+To solve a given input file(txt) use
 
 ```
 node solver.js path/to/testfile.txt
@@ -101,8 +101,9 @@ Test Input:
 1 2 N
 LMLMLMLMM
 3 3 E
-```
 MMRMMRMRRM
+```
+
 Expected Output:
 ```
 1 3 N
