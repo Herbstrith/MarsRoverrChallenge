@@ -10,102 +10,71 @@ const Map = require('../src/map');
 describe('Maps test', () => {
   it('Should create a 5 x 5 map', () => {
     const testMap = Map.createMap(5, 5);
-    expect(testMap).lengthOf(8);
-    expect(testMap[0]).lengthOf(8);
-    expect(testMap[1]).lengthOf(8);
-    expect(testMap[2]).lengthOf(8);
-    expect(testMap[3]).lengthOf(8);
-    expect(testMap[4]).lengthOf(8);
-    expect(testMap[5]).lengthOf(8);
-    expect(testMap[6]).lengthOf(8);
+    expect(testMap).lengthOf(6);
+    expect(testMap[0]).lengthOf(6);
+    expect(testMap[1]).lengthOf(6);
+    expect(testMap[2]).lengthOf(6);
+    expect(testMap[3]).lengthOf(6);
+    expect(testMap[4]).lengthOf(6);
+    expect(testMap[5]).lengthOf(6);
     testMap.forEach((line, indexY) => {
       line.forEach((column, indexX) => {
-        if (indexY === 0 || indexY === 7 ||
-            indexX === 0 || indexX === 7) {
-          expect(column).equals(1);
-        } else {
           expect(column).equals(0);
-        }
       });
     });
   });
 
   it('Should create a 99 x 99 map', () => {
     const testMap = Map.createMap(99, 99);
-    expect(testMap).lengthOf(102);
+    expect(testMap).lengthOf(100);
     testMap.forEach((line, indexY) => {
       line.forEach((column, indexX) => {
-        if (indexY === 0 || indexY === 101 ||
-            indexX === 0 || indexX === 101) {
-          expect(column).equals(1);
-        } else {
-          expect(column).equals(0);
-        }
+        expect(column).equals(0);
       });
     });
   });
 
   it('Should create a 45 x 78 map', () => {
     const testMap = Map.createMap(45, 78);
-    expect(testMap).lengthOf(48);
-    expect(testMap).lengthOf(48);
-    expect(testMap[0]).lengthOf(81);
+    expect(testMap).lengthOf(46);
+    expect(testMap).lengthOf(46);
+    expect(testMap[0]).lengthOf(79);
     testMap.forEach((line, indexX) => {
       line.forEach((column, indexY) => {
-        if (indexY === 0 || indexY === 80 ||
-            indexX === 0 || indexX === 47) {
-          expect(column).equals(1);
-        } else {
-          expect(column).equals(0);
-        }
+        expect(column).equals(0);
       });
     });
   });
 
   it('Should create a 78 x 45 map', () => {
     const testMap = Map.createMap(78, 45);
-    expect(testMap).lengthOf(81);
-    expect(testMap[0]).lengthOf(48);
+    expect(testMap).lengthOf(79);
+    expect(testMap[0]).lengthOf(46);
     testMap.forEach((line, indexX) => {
       line.forEach((column, indexY) => {
-        if (indexY === 0 || indexY === 47 ||
-            indexX === 0 || indexX === 80) {
-          expect(column).equals(1);
-        } else {
-          expect(column).equals(0);
-        }
+        expect(column).equals(0);
       });
     });
   });
 
   it('Should create a 0 x 45 map', () => {
     const testMap = Map.createMap(0, 45);
-    expect(testMap).lengthOf(3);
-    expect(testMap[0]).lengthOf(48);
+    expect(testMap).lengthOf(1);
+    expect(testMap[0]).lengthOf(46);
     testMap.forEach((line, indexX) => {
       line.forEach((column, indexY) => {
-        if (indexY === 0 || indexY === 47 ||
-            indexX === 0 || indexX === 2) {
-          expect(column).equals(1);
-        } else {
-          expect(column).equals(0);
-        }
+        expect(column).equals(0);
       });
     });
   });
 
   it('Should create a 78 x 0 map', () => {
     const testMap = Map.createMap(78, 0);
-    expect(testMap).lengthOf(81);
-    expect(testMap[0]).lengthOf(3);
+    expect(testMap).lengthOf(79);
+    expect(testMap[0]).lengthOf(1);
     testMap.forEach((line, indexX) => {
       line.forEach((column, indexY) => {
-        if (indexY === 0 || indexY === 2 ||
-            indexX === 0 || indexX === 80) {
-          expect(column).equals(1);
-        } else {
-          expect(column).equals(0);
-        }
+        expect(column).equals(0);
       });
     });
   });

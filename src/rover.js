@@ -24,15 +24,12 @@
  * @returns {State}
  */
 const createRover = (map, { x, y, facing }) => {
-  // we add one since the borders of our array are the borders of the map
-  const roverX = x + 1;
-  const roverY = y + 1;
   // check if we are in a invalid position
-  if (map[roverX][roverY] !== 0) {
+  if (typeof map[x] === 'undefined' || map[x][y] !== 0) {
     throw new Error('Invalid starting position for rover');
   }
-  map[roverX][roverY] = 1;
-  return { map, rover: { x: roverX, y: roverY, facing } };
+  map[x][y] = 1;
+  return { map, rover: { x, y, facing } };
 };
 
 /**
@@ -105,8 +102,8 @@ const moveRover = (map, { x, y, facing }) => {
     default:
       break;
   }
-  // check if we are in a invalid position and do nothing
-  if (map[newX][newY] === 1) {
+  // check if we are not in a valid position and do nothing
+  if (typeof map[newX] === 'undefined' || map[newX][newY] !== 0) {
     return { map, rover: { x, y, facing } };
   }
   // move the rover
@@ -155,7 +152,7 @@ const takeMultipleActions = (map, rover, actionString) => {
  * @param {Rover} rover
  * @returns {string}
  */
-const roverActualPosition = ({ x, y, facing }) => `${x - 1} ${y - 1} ${facing}`;
+const roverActualPosition = ({ x, y, facing }) => `${x} ${y} ${facing}`;
 
 module.exports = {
   createRover,

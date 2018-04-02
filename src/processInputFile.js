@@ -11,13 +11,14 @@ const Map = require('./map');
 const SetupAndRun = (file) => {
   const fileLines = fs.readFileSync(file).toString().split('\r\n');
   const mapParams = fileLines[0].split(' ');
-  const height = parseInt(mapParams[0], 10);
-  const width = parseInt(mapParams[1], 10);
+  const width = parseInt(mapParams[0], 10);
+  const height = parseInt(mapParams[1], 10);
   const map = Map.createMap(width, height);
   fileLines.shift();
   let state = {
     map,
   };
+
   for (let i = 0; i < fileLines.length; i += 1) {
     const roverCreateParams = fileLines[i].split(' ');
     // separate line params (create)

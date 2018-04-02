@@ -22,5 +22,5 @@ try {
     }
   });
 } catch (error) {
-  console.log('It was not possible to process the input file');
+  console.log('It was not possible to process the input file: ', error);
 }

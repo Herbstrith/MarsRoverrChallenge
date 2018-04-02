@@ -13,27 +13,27 @@ describe('Rover creation tests', () => {
     const testMap = Map.createMap(5, 5);
     const testRover = { x: 1, y: 2, facing: 'N' };
     const state = Rover.createRover(testMap, testRover);
-    expect(state.map).property('2').property('3').equals(1);
+    expect(state.map).property('1').property('2').equals(1);
     expect(state.rover).property('facing').equals(testRover.facing);
-    expect(state.rover).property('x').equals(testRover.x + 1);
-    expect(state.rover).property('y').equals(testRover.y + 1);
+    expect(state.rover).property('x').equals(testRover.x);
+    expect(state.rover).property('y').equals(testRover.y);
   });
 
   it('Should create multiple rovers in edges of the map', () => {
     const testMap = Map.createMap(5, 5);
     const testRover = { x: 5, y: 5, facing: 'S' };
     let state = Rover.createRover(testMap, testRover);
-    expect(state.map).property('6').property('6').equals(1);
+    expect(state.map).property('5').property('5').equals(1);
     expect(state.rover).property('facing').equals(testRover.facing);
-    expect(state.rover).property('x').equals(testRover.x + 1);
-    expect(state.rover).property('y').equals(testRover.y + 1);
+    expect(state.rover).property('x').equals(testRover.x);
+    expect(state.rover).property('y').equals(testRover.y);
 
     const testRover2 = { x: 0, y: 0, facing: 'E' };
     state = Rover.createRover(testMap, testRover2);
-    expect(state.map).property('1').property('1').equals(1);
+    expect(state.map).property('0').property('0').equals(1);
     expect(state.rover).property('facing').equals(testRover2.facing);
-    expect(state.rover).property('x').equals(testRover2.x + 1);
-    expect(state.rover).property('y').equals(testRover2.y + 1);
+    expect(state.rover).property('x').equals(testRover2.x);
+    expect(state.rover).property('y').equals(testRover2.y);
   });
 
   it('Should not create rover outside the map', () => {
@@ -43,6 +43,8 @@ describe('Rover creation tests', () => {
     testRover = { x: 4, y: 10, facing: 'S' };
     expect(() => Rover.createRover(testMap, testRover)).to.throw();
     testRover = { x: -1, y: 2, facing: 'S' };
+    expect(() => Rover.createRover(testMap, testRover)).to.throw();
+    testRover = { x: 1, y: -2, facing: 'S' };
     expect(() => Rover.createRover(testMap, testRover)).to.throw();
   });
 });
@@ -70,15 +72,27 @@ describe('Rover movement tests', () => {
     let state = Rover.createRover(testMap, testRover);
 
     state = Rover.moveRover(state.map, state.rover);
-    expect(state.map).property('2').property('4').equals(1);
+    expect(state.map).property('1').property('3').equals(1);
     expect(state.rover).property('facing').equals(testRover.facing);
-    expect(state.rover).property('x').equals(testRover.x + 1);
-    expect(state.rover).property('y').equals(testRover.y + 2);
+    expect(state.rover).property('x').equals(testRover.x);
+    expect(state.rover).property('y').equals(testRover.y + 1);
   });
 
   it('Should move south', () => {
     const testMap = Map.createMap(5, 5);
     const testRover = { x: 1, y: 2, facing: 'S' };
+    let state = Rover.createRover(testMap, testRover);
+
+    state = Rover.moveRover(state.map, state.rover);
+    expect(state.map).property('1').property('1').equals(1);
+    expect(state.rover).property('facing').equals(testRover.facing);
+    expect(state.rover).property('x').equals(testRover.x);
+    expect(state.rover).property('y').equals(testRover.y - 1);
+  });
+
+  it('Should move east', () => {
+    const testMap = Map.createMap(5, 5);
+    const testRover = { x: 1, y: 2, facing: 'E' };
     let state = Rover.createRover(testMap, testRover);
 
     state = Rover.moveRover(state.map, state.rover);
@@ -88,28 +102,16 @@ describe('Rover movement tests', () => {
     expect(state.rover).property('y').equals(testRover.y);
   });
 
-  it('Should move east', () => {
-    const testMap = Map.createMap(5, 5);
-    const testRover = { x: 1, y: 2, facing: 'E' };
-    let state = Rover.createRover(testMap, testRover);
-
-    state = Rover.moveRover(state.map, state.rover);
-    expect(state.map).property('3').property('3').equals(1);
-    expect(state.rover).property('facing').equals(testRover.facing);
-    expect(state.rover).property('x').equals(testRover.x + 2);
-    expect(state.rover).property('y').equals(testRover.y + 1);
-  });
-
   it('Should move west', () => {
     const testMap = Map.createMap(5, 5);
     const testRover = { x: 1, y: 2, facing: 'W' };
     let state = Rover.createRover(testMap, testRover);
 
     state = Rover.moveRover(state.map, state.rover);
-    expect(state.map).property('0').property('3').equals(1);
+    expect(state.map).property('0').property('2').equals(1);
     expect(state.rover).property('facing').equals(testRover.facing);
-    expect(state.rover).property('x').equals(testRover.x);
-    expect(state.rover).property('y').equals(testRover.y + 1);
+    expect(state.rover).property('x').equals(testRover.x - 1);
+    expect(state.rover).property('y').equals(testRover.y);
   });
 
   it('Should not move north (invalid position)', () => {
@@ -119,10 +121,10 @@ describe('Rover movement tests', () => {
     const testRover = { x: 1, y: 2, facing: 'N' };
     state = Rover.createRover(testMap, testRover);
     state = Rover.moveRover(state.map, state.rover);
-    expect(state.map).property('2').property('3').equals(1);
+    expect(state.map).property('1').property('2').equals(1);
     expect(state.rover).property('facing').equals(testRover.facing);
-    expect(state.rover).property('x').equals(testRover.x + 1);
-    expect(state.rover).property('y').equals(testRover.y + 1);
+    expect(state.rover).property('x').equals(testRover.x);
+    expect(state.rover).property('y').equals(testRover.y);
   });
 
   it('Should not move south (invalid position)', () => {
@@ -132,10 +134,10 @@ describe('Rover movement tests', () => {
     const testRover = { x: 1, y: 2, facing: 'S' };
     state = Rover.createRover(testMap, testRover);
     state = Rover.moveRover(state.map, state.rover);
-    expect(state.map).property('2').property('3').equals(1);
+    expect(state.map).property('1').property('2').equals(1);
     expect(state.rover).property('facing').equals(testRover.facing);
-    expect(state.rover).property('x').equals(testRover.x + 1);
-    expect(state.rover).property('y').equals(testRover.y + 1);
+    expect(state.rover).property('x').equals(testRover.x);
+    expect(state.rover).property('y').equals(testRover.y);
   });
 
   it('Should not move east (invalid position)', () => {
@@ -145,10 +147,10 @@ describe('Rover movement tests', () => {
     const testRover = { x: 1, y: 2, facing: 'E' };
     state = Rover.createRover(testMap, testRover);
     state = Rover.moveRover(state.map, state.rover);
-    expect(state.map).property('2').property('3').equals(1);
+    expect(state.map).property('1').property('2').equals(1);
     expect(state.rover).property('facing').equals(testRover.facing);
-    expect(state.rover).property('x').equals(testRover.x + 1);
-    expect(state.rover).property('y').equals(testRover.y + 1);
+    expect(state.rover).property('x').equals(testRover.x);
+    expect(state.rover).property('y').equals(testRover.y);
   });
 
   it('Should not move west (invalid position)', () => {
@@ -158,10 +160,10 @@ describe('Rover movement tests', () => {
     const testRover = { x: 1, y: 2, facing: 'W' };
     state = Rover.createRover(testMap, testRover);
     state = Rover.moveRover(state.map, state.rover);
-    expect(state.map).property('2').property('3').equals(1);
+    expect(state.map).property('1').property('2').equals(1);
     expect(state.rover).property('facing').equals(testRover.facing);
-    expect(state.rover).property('x').equals(testRover.x + 1);
-    expect(state.rover).property('y').equals(testRover.y + 1);
+    expect(state.rover).property('x').equals(testRover.x);
+    expect(state.rover).property('y').equals(testRover.y);
   });
 });
 
@@ -188,10 +190,10 @@ describe('Take action method tests', () => {
     let state = Rover.createRover(testMap, testRover);
 
     state = Rover.takeAction(state.map, state.rover, 'M');
-    expect(state).property('rover').property('x').equals(2);
-    expect(state).property('rover').property('y').equals(4);
+    expect(state).property('rover').property('x').equals(1);
+    expect(state).property('rover').property('y').equals(3);
     expect(state).property('rover').property('facing').equals('N');
-    expect(state).property('map').property('2').property('4').equals(1);
+    expect(state).property('map').property('1').property('3').equals(1);
   });
 
   it('Should move a second rover', () => {
@@ -200,22 +202,22 @@ describe('Take action method tests', () => {
     let state = Rover.createRover(testMap, testRover);
 
     state = Rover.takeAction(state.map, state.rover, 'M');
-    expect(state).property('rover').property('x').equals(2);
-    expect(state).property('rover').property('y').equals(4);
+    expect(state).property('rover').property('x').equals(1);
+    expect(state).property('rover').property('y').equals(3);
     expect(state).property('rover').property('facing').equals('N');
-    expect(state).property('map').property('2').property('4').equals(1);
+    expect(state).property('map').property('1').property('3').equals(1);
 
     const testRover2 = { x: 4, y: 2, facing: 'E' };
     state = Rover.createRover(testMap, testRover2);
 
     state = Rover.takeAction(state.map, state.rover, 'M');
 
-    expect(state).property('rover').property('x').equals(6);
-    expect(state).property('rover').property('y').equals(3);
+    expect(state).property('rover').property('x').equals(5);
+    expect(state).property('rover').property('y').equals(2);
     expect(state).property('rover').property('facing').equals('E');
     // the previous rover
-    expect(state).property('map').property('2').property('4').equals(1);
-    expect(state).property('map').property('6').property('3').equals(1);
+    expect(state).property('map').property('1').property('3').equals(1);
+    expect(state).property('map').property('5').property('2').equals(1);
   });
 });
 
@@ -254,10 +256,10 @@ describe('Take list of action method tests', () => {
     let state = Rover.createRover(testMap, testRover);
 
     state = Rover.takeMultipleActions(state.map, state.rover, 'M');
-    expect(state).property('rover').property('x').equals(2);
-    expect(state).property('rover').property('y').equals(4);
+    expect(state).property('rover').property('x').equals(1);
+    expect(state).property('rover').property('y').equals(3);
     expect(state).property('rover').property('facing').equals('N');
-    expect(state).property('map').property('2').property('4').equals(1);
+    expect(state).property('map').property('1').property('3').equals(1);
   });
 
   it('Should take multiple actions', () => {
@@ -266,10 +268,10 @@ describe('Take list of action method tests', () => {
     let state = Rover.createRover(testMap, testRover);
 
     state = Rover.takeMultipleActions(state.map, state.rover, 'LMLMLMLMM');
-    expect(state).property('rover').property('x').equals(2);
-    expect(state).property('rover').property('y').equals(4);
+    expect(state).property('rover').property('x').equals(1);
+    expect(state).property('rover').property('y').equals(3);
     expect(state).property('rover').property('facing').equals('N');
-    expect(state).property('map').property('2').property('4').equals(1);
+    expect(state).property('map').property('1').property('3').equals(1);
   });
 
   it('Should take multiple actions', () => {
@@ -278,10 +280,10 @@ describe('Take list of action method tests', () => {
     let state = Rover.createRover(testMap, testRover);
 
     state = Rover.takeMultipleActions(state.map, state.rover, 'MMRMMRMRRM');
-    expect(state).property('rover').property('x').equals(6);
-    expect(state).property('rover').property('y').equals(2);
+    expect(state).property('rover').property('x').equals(5);
+    expect(state).property('rover').property('y').equals(1);
     expect(state).property('rover').property('facing').equals('E');
-    expect(state).property('map').property('6').property('2').equals(1);
+    expect(state).property('map').property('5').property('1').equals(1);
   });
 
   it('Should take multiple actions (multiple rovers)', () => {
@@ -290,19 +292,19 @@ describe('Take list of action method tests', () => {
     let state = Rover.createRover(testMap, testRover);
 
     state = Rover.takeMultipleActions(state.map, state.rover, 'LMLMLMLMM');
-    expect(state).property('rover').property('x').equals(2);
-    expect(state).property('rover').property('y').equals(4);
+    expect(state).property('rover').property('x').equals(1);
+    expect(state).property('rover').property('y').equals(3);
     expect(state).property('rover').property('facing').equals('N');
-    expect(state).property('map').property('2').property('4').equals(1);
+    expect(state).property('map').property('1').property('3').equals(1);
 
     const testRover2 = { x: 3, y: 3, facing: 'E' };
     state = Rover.createRover(state.map, testRover2);
 
     state = Rover.takeMultipleActions(state.map, state.rover, 'MMRMMRMRRM');
-    expect(state).property('rover').property('x').equals(6);
-    expect(state).property('rover').property('y').equals(2);
+    expect(state).property('rover').property('x').equals(5);
+    expect(state).property('rover').property('y').equals(1);
     expect(state).property('rover').property('facing').equals('E');
-    expect(state).property('map').property('6').property('2').equals(1);
-    expect(state).property('map').property('2').property('4').equals(1);
+    expect(state).property('map').property('5').property('1').equals(1);
+    expect(state).property('map').property('1').property('3').equals(1);
   });
 });

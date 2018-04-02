@@ -19,5 +19,9 @@ describe('Maps test', () => {
   it('Should process input file testInput/test3.txt without error', () => {
     expect(() => ProcessInputFile('test/testInput/test3.txt')).to.not.throw();
   });
+
+  it('Should process input file testInput/test4.txt without error', () => {
+    expect(() => ProcessInputFile('test/testInput/test4.txt')).to.not.throw();
+  });
 });
 
