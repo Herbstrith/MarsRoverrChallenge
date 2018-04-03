@@ -21,8 +21,7 @@ const createMap = (width, height) => {
   // check if input params are valid
   if (!Number.isFinite(height) ||
       !Number.isFinite(width) ||
-      height === -1 ||
-      width === -1) {
+      height < 0 || width < 0) {
     throw new Error('Invalid map height or width');
   }
   const map = new Array(width);
