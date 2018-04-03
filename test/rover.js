@@ -40,6 +40,9 @@ describe('Rover creation tests', () => {
     const testMap = Map.createMap(5, 5);
     let testRover = { x: 8, y: 2, facing: 'N' };
     expect(() => Rover.createRover(testMap, testRover)).to.throw();
+    testRover = { x: 4, y: 2, facing: 'N' };
+    Rover.createRover(testMap, testRover);
+    expect(() => Rover.createRover(testMap, testRover)).to.throw();
     testRover = { x: 4, y: 10, facing: 'S' };
     expect(() => Rover.createRover(testMap, testRover)).to.throw();
     testRover = { x: -1, y: 2, facing: 'S' };
