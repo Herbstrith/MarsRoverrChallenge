@@ -19,7 +19,7 @@
 
 /**
  * Creates a rover on a given map
- * @param {Map} map The map matrix to create the rover on. The reference will be altered (out)
+ * @param {Map} map The map matrix to create the rover on. The reference will be altered(out).
  * @param {Rover} rover the rover to be positioned on the map
  * @returns {State}
  */
@@ -148,7 +148,7 @@ const takeMultipleActions = (map, rover, actionString) => {
 };
 
 /**
- * Returns the expected output string (minus 1 to coordinates)
+ * Returns the expected output string
  * @param {Rover} rover
  * @returns {string}
  */
